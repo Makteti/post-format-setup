@@ -1,0 +1,2 @@
+# Store files byte-for-byte, so the downloaded script keeps the same SHA-256 as the VirusTotal scan
+* -text
