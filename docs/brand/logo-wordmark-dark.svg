@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 64" role="img" aria-label="Post-Format Setup">
+  <rect width="64" height="64" rx="15" fill="#22C55E"/>
+  <rect x="14" y="14" width="15" height="15" rx="4" fill="#0B1410"/>
+  <rect x="14" y="35" width="15" height="15" rx="4" fill="#0B1410"/>
+  <rect x="35" y="35" width="15" height="15" rx="4" fill="#0B1410"/>
+  <path d="M42.5 12.5v14M36.5 21l6 6 6-6" fill="none" stroke="#0B1410" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="84" y="43" fill="#E7EAEE" font-family="Segoe UI Variable Display, Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="-0.4">Post-Format Setup</text>
+</svg>

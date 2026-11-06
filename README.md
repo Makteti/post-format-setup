@@ -1,4 +1,9 @@
-# Post-Format Setup
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/logo-wordmark-dark.svg">
+    <img src="docs/brand/logo-wordmark-light.svg" alt="Post-Format Setup" height="56">
+  </picture>
+</h1>
 
 [![Free and open source](https://img.shields.io/badge/free-open%20source-22C55E)](LICENSE)
 [![VirusTotal scan report](https://img.shields.io/badge/VirusTotal-scan%20report-394EFF?logo=virustotal&logoColor=white)](https://www.virustotal.com/gui/file/b70e0faa633ee4edf7234d842829588b67b5f9422a22a5d55f33c17c9b0ae57e/detection)

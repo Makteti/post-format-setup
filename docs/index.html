@@ -9,6 +9,8 @@
 <meta property="og:description" content="Install all your apps after a fresh Windows install, in one click. Free and open source.">
 <meta property="og:image" content="https://makteti.github.io/post-format-setup/screenshot.png">
 <meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/logo-512.png">
 <style>
   :root {
     --bg: #101318; --surface: #171b22; --surface2: #1e232c; --line: #232934; --line2: #2f3743;
@@ -32,7 +34,6 @@
   header { border-bottom: 1px solid var(--line); }
   header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
-  .mark { width: 24px; height: 24px; border-radius: 6px; background: var(--accent); display: grid; place-items: center; }
   header nav a { color: var(--muted); text-decoration: none; margin-left: 24px; font-size: 15px; }
   header nav a:hover { color: var(--text); }
 
@@ -112,9 +113,7 @@
 <header>
   <div class="wrap">
     <a class="brand" href="#">
-      <span class="mark" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0b1410" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-      </span>
+      <img src="brand/logo.svg" width="28" height="28" alt="">
       Post-Format Setup
     </a>
     <nav>
