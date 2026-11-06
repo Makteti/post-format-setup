@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post-Format Setup</title>
+<meta name="description" content="Mały, darmowy program dla Windows, który po formacie instaluje z powrotem Twoje aplikacje. Zaznacz, co chcesz, i kliknij Install.">
+<meta property="og:title" content="Post-Format Setup">
+<meta property="og:description" content="Mały, darmowy program dla Windows, który po formacie instaluje z powrotem Twoje aplikacje.">
+<meta property="og:image" content="https://makteti.github.io/post-format-setup/screenshot.png">
+<meta property="og:locale" content="pl_PL">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../brand/logo-512.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="en" href="https://makteti.github.io/post-format-setup/">
+<link rel="alternate" hreflang="pl" href="https://makteti.github.io/post-format-setup/pl/">
+</head>
+<body>
+
+<header>
+  <a class="name" href="./"><img src="../brand/logo.svg" width="26" height="26" alt="">Post-Format Setup</a>
+  <nav><a href="../" hreflang="en" lang="en">English</a><a href="https://github.com/Makteti/post-format-setup">GitHub</a></nav>
+</header>
+
+<main>
+  <h1>Zainstaluj z powrotem wszystkie aplikacje po świeżej instalacji Windowsa</h1>
+  <p>Post-Format Setup to mały program na moment tuż po sformatowaniu komputera. Zaznaczasz aplikacje, których używasz, klikasz <b>Install</b>, a on pobiera je i instaluje jedną po drugiej, podczas gdy Ty zajmujesz się czymś innym. Bez szukania po stronach i bez klikania „Dalej” dwadzieścia razy.</p>
+  <p>Wszystko instaluje przez <b>winget</b>, menedżer pakietów wbudowany w Windowsa, więc aplikacje pochodzą z oficjalnych źródeł.</p>
+
+  <a class="download" href="https://github.com/Makteti/post-format-setup/releases/latest/download/PostFormatInstaller.ps1" download>Pobierz PostFormatInstaller.ps1</a>
+  <p class="meta">Wersja 1.0.0 · 106 KB · Windows 10 i 11 · Darmowy, otwarty kod (licencja MIT) · <a href="https://github.com/Makteti/post-format-setup">kod źródłowy</a><br>Sam program ma interfejs po angielsku.</p>
+
+  <figure>
+    <img src="../screenshot.png" width="1600" height="940" alt="Okno Post-Format Setup. Aplikacje są pogrupowane w kategorie; Brave ma status Completed, Discord pobiera się (52%), a obie wersje TeamSpeaka czekają w kolejce.">
+    <figcaption>Każda aplikacja pokazuje własny postęp. W tym czasie możesz normalnie korzystać z komputera.</figcaption>
+  </figure>
+
+  <h2>Co może zainstalować</h2>
+  <p>Łącznie 111 aplikacji. Kilka z nich:</p>
+  <dl>
+    <dt>Gry</dt><dd>Steam, GOG Galaxy, Epic Games, EA app, Ubisoft Connect, Battle.net</dd>
+    <dt>Komunikatory</dt><dd>Discord, TeamSpeak 3 i 5, Telegram, Signal, Zoom, Slack</dd>
+    <dt>Przeglądarki</dt><dd>Brave, Firefox, Chrome, Opera GX, Vivaldi</dd>
+    <dt>Multimedia</dt><dd>Spotify, VLC, OBS Studio, Audacity, GIMP, Blender</dd>
+    <dt>Programowanie</dt><dd>VS Code, Git, Node.js, Python, Docker, Notepad++</dd>
+    <dt>Na co dzień</dt><dd>7-Zip, LibreOffice, Acrobat Reader, Bitwarden, PowerToys</dd>
+  </dl>
+  <p style="margin-top:14px">Aplikacje, które już masz, zostaną wykryte i pominięte. Program może też ustawić domyślną przeglądarkę.</p>
+
+  <h2>Jak go używać</h2>
+  <ol>
+    <li>Pobierz plik powyżej. Jeśli przeglądarka zapyta, wybierz <b>Zachowaj</b>.</li>
+    <li>Kliknij prawym przyciskiem myszy plik <b>PostFormatInstaller.ps1</b> i wybierz <b>Uruchom za pomocą programu PowerShell</b>. W Windows 11 ta opcja jest pod <b>Pokaż więcej opcji</b>. Nie wybieraj „Uruchom jako administrator”.</li>
+    <li>Zaznacz potrzebne aplikacje i kliknij <b>Install</b>.</li>
+    <li>Gdy na dole okna pojawi się <b>Finished</b>, możesz je zamknąć.</li>
+  </ol>
+
+  <p class="note"><b>Przy niektórych aplikacjach Windows poprosi o zgodę.</b> Zanim klikniesz <b>Tak</b>, sprawdź, czy nazwa i wydawca pasują do wybranej aplikacji, np. „Steam Setup” od Valve Corp. Jeśli coś się nie zgadza, kliknij <b>Nie</b>. Ta aplikacja zostanie pominięta, a reszta będzie się instalować dalej.</p>
+
+  <h2>Czy to bezpieczne?</h2>
+  <p>To jeden zwykły plik tekstowy ze skryptem. Przed uruchomieniem możesz go otworzyć w Notatniku albo <a href="https://github.com/Makteti/post-format-setup/blob/main/PostFormatInstaller.ps1">przeczytać na GitHubie</a>. Nie ma reklam, śledzenia ani zakładania konta. Ten konkretny plik został sprawdzony przez ponad 70 programów antywirusowych w serwisie <a href="https://www.virustotal.com/gui/file/b70e0faa633ee4edf7234d842829588b67b5f9422a22a5d55f33c17c9b0ae57e/detection">VirusTotal</a>.</p>
+  <p>Aby upewnić się, że masz dokładnie ten sam plik, uruchom w PowerShellu <code>Get-FileHash .\PostFormatInstaller.ps1</code>. Wynik powinien wyglądać tak:</p>
+  <p><code>B70E0FAA633EE4EDF7234D842829588B67B5F9422A22A5D55F33C17C9B0AE57E</code></p>
+</main>
+
+<footer>
+  Autor: Mateusz Weryński · <a href="https://github.com/Makteti/post-format-setup">Kod źródłowy na GitHubie</a> · <a href="https://github.com/Makteti/post-format-setup/issues">Zgłoś problem</a>
+</footer>
+
+</body>
+</html>
