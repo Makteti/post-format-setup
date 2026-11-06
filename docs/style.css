@@ -55,3 +55,7 @@
     .download { display: block; text-align: center; }
   }
   header nav a:first-child { margin-left: 0; }
+  header .name { white-space: nowrap; }
+  @media (max-width: 400px) {
+    header nav a[href*="github.com"] { display: none; }
+  }
