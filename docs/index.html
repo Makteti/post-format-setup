@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post-Format Setup: install all your apps in one click</title>
+<meta name="description" content="Free, open-source Windows tool that installs 111 popular apps after a fresh Windows install. One small PowerShell file, no dependencies.">
+<meta property="og:title" content="Post-Format Setup">
+<meta property="og:description" content="Install all your apps after a fresh Windows install, in one click. Free and open source.">
+<meta property="og:image" content="https://makteti.github.io/post-format-setup/screenshot.png">
+<meta name="color-scheme" content="dark">
+<style>
+  :root {
+    --bg: #101318; --surface: #171b22; --surface2: #1e232c; --line: #232934; --line2: #2f3743;
+    --text: #e7eaee; --muted: #8d96a3; --accent: #22c55e; --accent-hover: #3bd573; --on-accent: #0b1410;
+    --warn-bg: #2a2214; --warn-line: #5c4a1f; --warn: #e5b567;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--text); text-underline-offset: 3px; }
+  a:focus-visible, .btn:focus-visible { outline: 2px solid #9cc9ff; outline-offset: 3px; border-radius: 8px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  code, .mono { font-family: "Cascadia Mono", Consolas, ui-monospace, monospace; font-size: .9em; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
+  .mark { width: 24px; height: 24px; border-radius: 6px; background: var(--accent); display: grid; place-items: center; }
+  header nav a { color: var(--muted); text-decoration: none; margin-left: 24px; font-size: 15px; }
+  header nav a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.1; margin: 0 0 18px; letter-spacing: -0.02em; font-weight: 650; }
+  .lede { color: var(--muted); font-size: 18px; margin: 0 0 30px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 10px;
+    font-weight: 600; text-decoration: none; font-size: 16px; transition: background-color .15s ease, border-color .15s ease;
+  }
+  .btn-primary { background: var(--accent); color: var(--on-accent); }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-ghost { border: 1px solid var(--line2); color: var(--text); }
+  .btn-ghost:hover { background: var(--surface2); }
+  .meta { color: var(--muted); font-size: 14px; margin-top: 14px; }
+  .facts { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 14px; }
+  .facts li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+  .hero-shot { border: 1px solid var(--line2); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .hero-shot img { display: block; width: 100%; height: auto; }
+
+  /* Sections */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.01em; font-weight: 650; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 40em; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+  .card h3 { font-size: 17px; margin: 0 0 6px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .cat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .cat b { display: flex; justify-content: space-between; font-size: 15px; }
+  .cat b span { color: var(--muted); font-weight: 400; font-size: 13px; }
+  .cat p { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+  .steps li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; counter-increment: s; }
+  .steps li::before {
+    content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+    background: var(--surface2); border: 1px solid var(--line2); font-weight: 600; font-size: 14px; margin-bottom: 14px;
+  }
+  .steps h3 { font-size: 16px; margin: 0 0 6px; }
+  .steps p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .warn { margin-top: 24px; background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 12px; padding: 20px 22px; }
+  .warn h3 { margin: 0 0 6px; font-size: 16px; color: var(--warn); }
+  .warn p, .warn li { color: var(--text); font-size: 15px; }
+  .warn ul { margin: 8px 0 0; padding-left: 20px; }
+  .warn p { margin: 0; }
+
+  .trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .hash { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; overflow-wrap: anywhere; color: var(--muted); font-size: 14px; }
+  .hash code { color: var(--text); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 48px; }
+    .features, .cats, .trust { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 0 16px; }
+    header nav a:not(.gh) { display: none; }
+    .features, .cats, .trust, .steps { grid-template-columns: 1fr; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">
+      <span class="mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0b1410" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+      </span>
+      Post-Format Setup
+    </a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#safety">Safety</a>
+      <a class="gh" href="https://github.com/Makteti/post-format-setup">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>All your apps back after a fresh Windows install. One click.</h1>
+      <p class="lede">Tick what you want: Steam, Discord, Spotify, Chrome, VS Code and 100+ more. Post-Format Setup downloads and installs them silently, one after another, while you get on with your day.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/Makteti/post-format-setup/releases/latest/download/PostFormatInstaller.ps1" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/Makteti/post-format-setup">View source</a>
+      </div>
+      <p class="meta">Free · Windows 10 &amp; 11 · one file, 106 KB · <a href="https://github.com/Makteti/post-format-setup/releases">all versions</a></p>
+      <ul class="facts">
+        <li>Free &amp; open source (MIT)</li>
+        <li>No installer, no sign-up</li>
+        <li>Uses Windows' own winget</li>
+      </ul>
+    </div>
+    <figure class="hero-shot" style="margin:0">
+      <img src="screenshot.png" width="1600" height="940" alt="The Post-Format Setup window: apps grouped by category as tiles, with Brave completed, Discord downloading at 52 percent and TeamSpeak queued.">
+    </figure>
+  </div>
+
+  <section aria-labelledby="f-h">
+    <h2 id="f-h">Why use it</h2>
+    <p class="sub">Reinstalling apps one by one after a format takes an afternoon of visiting websites and clicking "Next". This does it in one go.</p>
+    <div class="features">
+      <div class="card"><h3>See every app's progress</h3><p>Each app shows its own status: Queued, Downloading 42%, Installing, Completed. If something fails, hover it to see why.</p></div>
+      <div class="card"><h3>Never freezes</h3><p>Installs run in the background. Scroll, search or minimise the window while they work.</p></div>
+      <div class="card"><h3>Skips what you have</h3><p>Apps already on the PC are detected and marked Installed, so nothing gets installed twice.</p></div>
+      <div class="card"><h3>Official sources only</h3><p>Every app comes from the official winget catalogue, the package manager built into Windows.</p></div>
+      <div class="card"><h3>Sets your default browser</h3><p>Pick Brave, Firefox or Chrome. If Windows insists, it opens the right Settings page so the change is one click.</p></div>
+      <div class="card"><h3>Lightweight</h3><p>One 106 KB file. Nothing to install, nothing left running afterwards.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="c-h">
+    <h2 id="c-h">111 apps, 9 categories</h2>
+    <p class="sub">Search by name, or pick a whole category at once.</p>
+    <div class="cats">
+      <div class="cat"><b>Gaming <span>14</span></b><p>Steam, GOG Galaxy, Epic Games, EA app, Ubisoft Connect, Battle.net, Minecraft…</p></div>
+      <div class="cat"><b>Communication <span>12</span></b><p>Discord, TeamSpeak 3 &amp; 5, Telegram, Signal, Zoom, Teams, Slack…</p></div>
+      <div class="cat"><b>Browsers <span>9</span></b><p>Brave, Firefox, Chrome, Opera GX, Vivaldi, LibreWolf, Zen, Tor…</p></div>
+      <div class="cat"><b>Media &amp; Creative <span>16</span></b><p>Spotify, VLC, OBS Studio, Audacity, Blender, GIMP, Krita, ShareX…</p></div>
+      <div class="cat"><b>Development <span>21</span></b><p>VS Code, Visual Studio, Git, Node.js, Python, Docker, JetBrains Toolbox…</p></div>
+      <div class="cat"><b>Productivity <span>10</span></b><p>Notion, Obsidian, LibreOffice, Acrobat Reader, PowerToys, Everything…</p></div>
+      <div class="cat"><b>Utilities <span>16</span></b><p>7-Zip, WinRAR, CPU-Z, HWiNFO, Rufus, Revo Uninstaller, VC++ runtimes…</p></div>
+      <div class="cat"><b>Security &amp; Privacy <span>7</span></b><p>Bitwarden, 1Password, KeePassXC, Malwarebytes, Proton VPN…</p></div>
+      <div class="cat"><b>Cloud &amp; Remote <span>6</span></b><p>Google Drive, Dropbox, MEGA, qBittorrent, AnyDesk, TeamViewer</p></div>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="h-h">
+    <h2 id="h-h">How to use it</h2>
+    <p class="sub">No technical knowledge needed.</p>
+    <ol class="steps">
+      <li><h3>Download</h3><p>Click <b>Download for Windows</b>. If your browser asks, choose <b>Keep</b>.</p></li>
+      <li><h3>Run</h3><p>Right-click <b>PostFormatInstaller.ps1</b> and choose <b>Run with PowerShell</b>. On Windows 11 it's under <b>Show more options</b>. Don't use "Run as administrator".</p></li>
+      <li><h3>Pick apps</h3><p>Click the apps you want. Use search or the category list to find them quickly.</p></li>
+      <li><h3>Install</h3><p>Click <b>Install</b> and watch each app finish. Close the window when it says Finished.</p></li>
+    </ol>
+    <div class="warn" role="note">
+      <h3>Windows will ask for permission for some apps</h3>
+      <p>Apps that install for every user on the PC trigger a Windows prompt: <i>"Do you want to allow this app to make changes to your device?"</i> Before clicking <b>Yes</b>:</p>
+      <ul>
+        <li>Check that the program name matches an app you picked, for example "Steam Setup" while Steam says Installing.</li>
+        <li>Check that the verified publisher is the company you expect, for example Valve Corp. or Discord Inc.</li>
+        <li>If anything doesn't match, or the publisher shows as <i>Unknown</i>, click <b>No</b>. That app is skipped and the rest carry on.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="safety" aria-labelledby="s-h">
+    <h2 id="s-h">Is it safe?</h2>
+    <p class="sub">You don't have to take our word for it.</p>
+    <div class="trust">
+      <div class="card"><h3>Read the code</h3><p>It's one plain-text script. Open it in Notepad, or <a href="https://github.com/Makteti/post-format-setup/blob/main/PostFormatInstaller.ps1">read it on GitHub</a>, before running it.</p></div>
+      <div class="card"><h3>Scanned by 70+ antivirus engines</h3><p>See the <a href="https://www.virustotal.com/gui/file/b70e0faa633ee4edf7234d842829588b67b5f9422a22a5d55f33c17c9b0ae57e/detection">VirusTotal report</a> for this exact file.</p></div>
+      <div class="card"><h3>Nothing hidden</h3><p>No ads, no tracking, no accounts. Apps come straight from winget, Microsoft's package manager.</p></div>
+    </div>
+    <p class="hash">To check your download is the scanned file, run <code>Get-FileHash .\PostFormatInstaller.ps1</code> in PowerShell. The result should be<br><code>B70E0FAA633EE4EDF7234D842829588B67B5F9422A22A5D55F33C17C9B0AE57E</code></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Post-Format Setup · Free and open source under the <a href="https://github.com/Makteti/post-format-setup/blob/main/LICENSE">MIT License</a></span>
+    <span><a href="https://github.com/Makteti/post-format-setup">Source on GitHub</a> · <a href="https://github.com/Makteti/post-format-setup/issues">Report a problem</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

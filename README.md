@@ -3,6 +3,10 @@
 [![Free and open source](https://img.shields.io/badge/free-open%20source-22C55E)](LICENSE)
 [![VirusTotal scan report](https://img.shields.io/badge/VirusTotal-scan%20report-394EFF?logo=virustotal&logoColor=white)](https://www.virustotal.com/gui/file/b70e0faa633ee4edf7234d842829588b67b5f9422a22a5d55f33c17c9b0ae57e/detection)
 
+### [⬇ Download for Windows](https://github.com/Makteti/post-format-setup/releases/latest/download/PostFormatInstaller.ps1) &nbsp;·&nbsp; [Website](https://makteti.github.io/post-format-setup/)
+
+![The Post-Format Setup window: apps grouped by category as tiles, each with its own install status](docs/screenshot.png)
+
 A single-file Windows tool that installs your usual apps after a fresh Windows install. Tick the apps you want, click **Install**, and it downloads and installs them silently, one after another, while you keep using the PC.
 
 It's one PowerShell script with a built-in graphical interface. Nothing else needs downloading: no Python, no .NET SDK, no extra files. Under the hood it uses **winget**, the package manager built into Windows 10 and 11, so every app comes from the official winget catalogue.
@@ -28,18 +32,13 @@ It's one PowerShell script with a built-in graphical interface. Nothing else nee
 
 **1. Download it**
 
-1. At the top of this GitHub page, click the green **Code** button.
-2. Click **Download ZIP**. A file called `post-format-setup-main.zip` saves to your **Downloads** folder.
-
-**2. Unzip it**
-
-1. Open your **Downloads** folder.
-2. Right-click the ZIP file and choose **Extract All…**, then click **Extract**.
-3. A new folder opens. Inside it is a file called **PostFormatInstaller.ps1**. That's the tool.
+1. Click **[⬇ Download for Windows](https://github.com/Makteti/post-format-setup/releases/latest/download/PostFormatInstaller.ps1)**. This link always gets the latest version.
+2. If your browser asks whether to keep the file, choose **Keep**. Browsers ask this about every script file.
+3. Open your **Downloads** folder. The file is called **PostFormatInstaller.ps1**. That's the whole tool; there's nothing to unzip or install.
 
 > Can't see the `.ps1` at the end of the name? That's fine; Windows hides file extensions by default. Look for **PostFormatInstaller** with a type of *Windows PowerShell Script*.
 
-**3. Start it**
+**2. Start it**
 
 1. **Right-click** `PostFormatInstaller.ps1`.
 2. Choose **Run with PowerShell**. On Windows 11 it may be under **Show more options** first.
@@ -47,13 +46,13 @@ It's one PowerShell script with a built-in graphical interface. Nothing else nee
 
 > **Don't** choose "Run as administrator". Just a normal right-click → **Run with PowerShell**.
 
-**4. Pick your apps**
+**3. Pick your apps**
 
 1. Tick the apps you want. Click anywhere on an app's tile to tick or untick it.
 2. Use the **search box** at the top right to find an app quickly, or click a category on the left to jump to it.
 3. Apps already on your PC say **Installed** and are skipped automatically.
 
-**5. Install**
+**4. Install**
 
 1. Click the green **Install** button at the bottom right.
 2. Watch each app's status change: *Queued → Downloading → Installing → Completed*.
@@ -62,7 +61,7 @@ It's one PowerShell script with a built-in graphical interface. Nothing else nee
 
 **If something goes wrong**
 
-- **Nothing happens, or the window flashes and closes:** right-click the file → **Properties**. If there's an **Unblock** checkbox at the bottom, tick it, click **OK**, and try step 3 again.
+- **Nothing happens, or the window flashes and closes:** right-click the file → **Properties**. If there's an **Unblock** checkbox at the bottom, tick it, click **OK**, and try step 2 again.
 - **"Windows protected your PC" (blue box):** click **More info → Run anyway**. Windows shows this for files downloaded from the internet that it hasn't seen many times before.
 - **An app says *Failed*:** hover over the red status to see why, or click **Open log** at the bottom. Usually running the install again fixes it.
 
