@@ -31,6 +31,9 @@
 (function () {
   var saved = null;
   try { saved = localStorage.getItem('pfs-lang'); } catch (e) {}
+  // ?lang=en or ?lang=pl in the address (used by the header language links) wins and is remembered
+  var asked = (location.search.match(/[?&]lang=(en|pl)/) || [])[1];
+  if (asked) { saved = asked; try { localStorage.setItem('pfs-lang', asked); } catch (e) {} }
   if (saved === 'pl') { location.replace('pl/'); return; }
   if (saved === 'en') { return; }
   var box = document.getElementById('lang-choice');
