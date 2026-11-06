@@ -16,9 +16,44 @@
 </head>
 <body>
 
+<!-- Language chooser: shown on the first visit only. The choice is remembered on this device. -->
+<div id="lang-choice" class="lang-choice" role="dialog" aria-modal="true" aria-labelledby="lang-title" hidden>
+  <div class="lang-box">
+    <img src="brand/logo.svg" width="56" height="56" alt="">
+    <h1 id="lang-title"><span lang="en">Choose your language</span> <span class="slash" aria-hidden="true">/</span> <span lang="pl">Wybierz język</span></h1>
+    <div class="lang-buttons">
+      <a class="lang-btn" href="pl/" hreflang="pl" lang="pl" data-lang="pl">Polski</a>
+      <a class="lang-btn" href="./" hreflang="en" lang="en" data-lang="en">English</a>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('pfs-lang'); } catch (e) {}
+  if (saved === 'pl') { location.replace('pl/'); return; }
+  if (saved === 'en') { return; }
+  var box = document.getElementById('lang-choice');
+  box.hidden = false;
+  document.documentElement.classList.add('choosing');
+  var first = box.querySelector('.lang-btn');
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.lang-btn');
+    if (!b) { return; }
+    try { localStorage.setItem('pfs-lang', b.dataset.lang); } catch (err) {}
+    if (b.dataset.lang === 'en') {
+      e.preventDefault();
+      box.hidden = true;
+      document.documentElement.classList.remove('choosing');
+    }
+  });
+  setTimeout(function () { first.focus(); }, 0);
+})();
+</script>
+
 <header>
   <a class="name" href="./"><img src="brand/logo.svg" width="26" height="26" alt="">Post-Format Setup</a>
-  <nav><a href="pl/" hreflang="pl" lang="pl">Polski</a><a href="https://github.com/Makteti/post-format-setup">GitHub</a></nav>
+  <nav><a href="pl/" hreflang="pl" lang="pl" data-lang="pl">Polski</a><a href="https://github.com/Makteti/post-format-setup">GitHub</a></nav>
 </header>
 
 <main>
@@ -66,5 +101,11 @@
   Made by Mateusz Weryński · <a href="https://github.com/Makteti/post-format-setup">Source on GitHub</a> · <a href="https://github.com/Makteti/post-format-setup/issues">Report a problem</a>
 </footer>
 
+<script>
+// Header language link: remember the switch so the entry page doesn't send you back.
+document.querySelectorAll('header nav a[data-lang]').forEach(function (a) {
+  a.addEventListener('click', function () { try { localStorage.setItem('pfs-lang', a.dataset.lang); } catch (e) {} });
+});
+</script>
 </body>
 </html>

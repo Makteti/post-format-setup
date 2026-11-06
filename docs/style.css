@@ -59,3 +59,22 @@
   @media (max-width: 400px) {
     header nav a[href*="github.com"] { display: none; }
   }
+
+  /* Language chooser (first visit) */
+  .lang-choice { position: fixed; inset: 0; z-index: 10; background: var(--bg); display: grid; place-items: center; padding: 20px; }
+  .lang-choice[hidden] { display: none; }
+  html.choosing body { overflow: hidden; }
+  .lang-box { text-align: center; max-width: 440px; width: 100%; }
+  .lang-box img { display: block; margin: 0 auto 18px; }
+  .lang-box h1 { font-size: 22px; margin: 0 0 26px; font-weight: 600; }
+  .lang-box .slash { color: var(--muted); font-weight: 400; margin: 0 4px; }
+  .lang-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lang-btn {
+    display: block; padding: 16px 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--soft); font-size: 18px; font-weight: 600; text-decoration: none; color: var(--text);
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  .lang-btn:hover { border-color: var(--button); color: var(--text); }
+  .lang-btn:focus-visible { outline: 3px solid var(--button); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .lang-btn { transition: none; } }
+  @media (max-width: 400px) { .lang-buttons { grid-template-columns: 1fr; } }
